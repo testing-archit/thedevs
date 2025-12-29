@@ -1,6 +1,8 @@
-import { Elysia, t } from 'elysia';
+import { Elysia } from 'elysia';
 import { html } from '@elysiajs/html';
 import { cookie } from '@elysiajs/cookie';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { renderLandingPage } from './pages/landing.js';
 import { renderLoginPage } from './pages/login.js';
 import { renderSignupPage } from './pages/signup.js';
@@ -12,19 +14,15 @@ const app = new Elysia()
     .get('/', () => renderLandingPage())
     .get('/login', () => renderLoginPage())
     .get('/signup', () => renderSignupPage())
-    .get('/logo.png', ({ set }) => {
+    .get('/logo.png', () => {
         try {
-            const fs = await import('fs');
-            const path = await import('path');
-            const logoPath = path.join(process.cwd(), 'logo.png');
-            const logo = fs.readFileSync(logoPath);
-            set.headers['Content-Type'] = 'image/png';
+            const logoPath = join(process.cwd(), 'logo.png');
+            const logo = readFileSync(logoPath);
             return new Response(logo, {
                 headers: { 'Content-Type': 'image/png' }
             });
         } catch {
-            set.status = 404;
-            return 'Not Found';
+            return new Response('Not Found', { status: 404 });
         }
     })
     .post('/api/auth/signup', async ({ body, cookie: { session }, set }) => {
