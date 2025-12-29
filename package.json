@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "start": "tsx src/index.ts",
-        "build": "echo 'Serverless functions only'",
+        "build": "mkdir -p public && echo '{}' > public/.gitkeep",
         "db:generate": "drizzle-kit generate:pg",
         "db:push": "drizzle-kit push:pg",
         "db:studio": "drizzle-kit studio"

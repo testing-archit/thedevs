@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "mkdir -p public && echo '{}' > public/.gitkeep",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/(.*)",
