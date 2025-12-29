@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "start": "tsx src/index.ts",
-        "build": "mkdir -p public && echo '{}' > public/.gitkeep",
+        "build": "mkdir -p public && echo '<!DOCTYPE html><html><head><meta http-equiv=\"refresh\" content=\"0; url=/api\"></head><body>Redirecting...</body></html>' > public/index.html",
         "db:generate": "drizzle-kit generate:pg",
         "db:push": "drizzle-kit push:pg",
         "db:studio": "drizzle-kit studio"
@@ -16,7 +16,6 @@
     "dependencies": {
         "@elysiajs/cookie": "^0.8.0",
         "@elysiajs/html": "^1.0.0",
-        "@elysiajs/static": "^1.0.0",
         "bcryptjs": "^2.4.3",
         "drizzle-orm": "^0.29.0",
         "elysia": "^1.0.0",
@@ -30,4 +29,3 @@
         "typescript": "^5.0.0"
     }
 }
-

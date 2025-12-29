@@ -1,11 +1,10 @@
 import { Elysia, t } from 'elysia';
-import { staticPlugin } from '@elysiajs/static';
 import { html } from '@elysiajs/html';
 import { cookie } from '@elysiajs/cookie';
-import { renderLandingPage } from './pages/landing';
-import { renderLoginPage } from './pages/login';
-import { renderSignupPage } from './pages/signup';
-import { createUser, findUserByEmail, verifyPassword, createSession, validateSession, deleteSession } from './services/auth';
+import { renderLandingPage } from './pages/landing.js';
+import { renderLoginPage } from './pages/login.js';
+import { renderSignupPage } from './pages/signup.js';
+import { createUser, findUserByEmail, verifyPassword, createSession, validateSession, deleteSession } from './services/auth.js';
 
 const app = new Elysia()
     .use(html())
@@ -13,11 +12,21 @@ const app = new Elysia()
     .get('/', () => renderLandingPage())
     .get('/login', () => renderLoginPage())
     .get('/signup', () => renderSignupPage())
-    .use(staticPlugin({
-        assets: 'public',
-        prefix: '/',
-        indexHTML: false
-    }))
+    .get('/logo.png', ({ set }) => {
+        try {
+            const fs = await import('fs');
+            const path = await import('path');
+            const logoPath = path.join(process.cwd(), 'logo.png');
+            const logo = fs.readFileSync(logoPath);
+            set.headers['Content-Type'] = 'image/png';
+            return new Response(logo, {
+                headers: { 'Content-Type': 'image/png' }
+            });
+        } catch {
+            set.status = 404;
+            return 'Not Found';
+        }
+    })
     .post('/api/auth/signup', async ({ body, cookie: { session }, set }) => {
         const { name, email, password, confirmPassword, course, specialization, yearOfStudy } = body as {
             name: string; email: string; password: string; confirmPassword: string;
@@ -107,7 +116,7 @@ const app = new Elysia()
         return;
     })
     .get('/health', () => ({ status: 'ok', stack: 'BETH', timestamp: new Date().toISOString() }))
-    .listen(3000);
+    .listen(process.env.PORT || 3000);
 
 console.log(`🚀 The Devs is running at http://localhost:${app.server?.port}`);
 console.log('📦 Stack: Node.js + ElysiaJS + TailwindCSS + HTMX');
