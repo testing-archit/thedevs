@@ -2,6 +2,7 @@
     "name": "the-devs",
     "version": "1.0.0",
     "description": "Bennett University PYQ Platform - BETH Stack",
+    "type": "module",
     "engines": {
         "node": "22.x"
     },
