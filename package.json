@@ -9,7 +9,7 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "start": "tsx dist/index.ts",
-        "build": "mkdir -p dist && cp -r src/* dist/ && cp package.json dist/ && cp logo.png dist/ 2>/dev/null || true",
+        "build": "mkdir -p dist public && cp -r src/* dist/ && cp package.json dist/ && cp logo.png dist/ && cp logo.png public/ 2>/dev/null || true",
         "db:generate": "drizzle-kit generate:pg",
         "db:push": "drizzle-kit push:pg",
         "db:studio": "drizzle-kit studio"
