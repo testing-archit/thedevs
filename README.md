@@ -4,7 +4,7 @@
 
 ## 🚀 Tech Stack
 
-- **Runtime**: Node.js 20.x
+- **Runtime**: Node.js 24.x
 - **Backend**: ElysiaJS
 - **Frontend**: HTMX + Alpine.js
 - **Styling**: TailwindCSS
@@ -14,8 +14,8 @@
 ## 🛠️ Getting Started
 
 ### Prerequisites
-- Node.js 20.x or higher
-- PostgreSQL database (Neon, Supabase, etc.)
+- Node.js 24.x (use `nvm use` if you have nvm installed)
+- PostgreSQL database (Neon, Supabase, local PostgreSQL, etc.)
 
 ### Installation
 

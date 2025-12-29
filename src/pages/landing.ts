@@ -10,7 +10,7 @@ import { BaseLayout } from '../components/BaseLayout.js';
 
 export function renderLandingPage(): string {
     const content = `
-        ${Navbar()}
+        ${Navbar(null)}
         ${Hero()}
         ${Features()}
         ${HowItWorks()}
