@@ -1,21 +1,31 @@
 # The Devs - Bennett University PYQ Platform
 
-**BETH Stack** • Node.js + ElysiaJS + TailwindCSS + HTMX
+A modern placement preparation platform built with **Next.js 14+** using the App Router architecture.
 
 ## 🚀 Tech Stack
 
+- **Framework**: Next.js 14+ (App Router)
 - **Runtime**: Node.js 24.x
-- **Backend**: ElysiaJS
-- **Frontend**: HTMX + Alpine.js
-- **Styling**: TailwindCSS
-- **Database**: PostgreSQL (Neon) + Drizzle ORM
-- **Auth**: Session-based with bcryptjs
+- **Frontend**: React 19 with Server Components
+- **Styling**: Tailwind CSS v3
+- **Database**: PostgreSQL (Neon) with Drizzle ORM
+- **Auth**: Server Actions with bcryptjs & HTTP-only cookies
+- **Language**: TypeScript
+
+## ✨ Features
+
+- 🔐 Secure authentication using Server Actions
+- 🎨 Modern, responsive UI with glassmorphism design
+- ⚡ Server-side rendering for optimal performance
+- 🛡️ Protected routes with session management
+- 📊 User dashboard with profile management
+- 🎯 SEO-optimized pages
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
 - Node.js 24.x (use `nvm use` if you have nvm installed)
-- PostgreSQL database (Neon, Supabase, local PostgreSQL, etc.)
+- PostgreSQL database (Neon recommended)
 
 ### Installation
 
@@ -42,39 +52,31 @@
 
    Server runs at `http://localhost:3000`
 
-## 🚀 Deploy
-
-### Railway
-1. Connect your GitHub repo
-2. Add `DATABASE_URL` environment variable
-3. Deploy!
-
-### Render
-1. Create a new Web Service
-2. Connect your GitHub repo
-3. Set build command: `npm install`
-4. Set start command: `npm start`
-5. Add `DATABASE_URL` environment variable
-
-### Fly.io
-```bash
-fly launch
-fly deploy
-```
-
 ## 📁 Project Structure
 
 ```
 devs-online/
 ├── src/
-│   ├── index.ts           # Main server entry
-│   ├── components/        # Server-side rendered components
-│   ├── pages/             # Page renderers
-│   ├── db/                # Database schema & connection
-│   └── services/          # Auth service
-├── logo.png               # Static asset
-├── package.json
-└── tsconfig.json
+│   ├── app/                  # Next.js App Router pages
+│   │   ├── (auth)/           # Auth routes (login, signup)
+│   │   ├── dashboard/        # Protected dashboard
+│   │   ├── layout.tsx        # Root layout
+│   │   ├── page.tsx          # Landing page
+│   │   └── globals.css       # Global styles
+│   ├── components/           # React components
+│   │   ├── auth/             # Auth-related components
+│   │   └── *.tsx             # UI components
+│   ├── actions/              # Server Actions
+│   │   └── auth.ts           # Authentication actions
+│   ├── lib/                  # Utilities
+│   │   └── auth.ts           # Auth helper functions
+│   └── db/                   # Database schema & connection
+│       ├── index.ts          # Drizzle client
+│       └── schema.ts         # Database schema
+├── public/                   # Static assets
+├── tailwind.config.js        # Tailwind configuration
+├── next.config.mjs           # Next.js configuration
+└── package.json
 ```
 
 ## 🚦 Available Scripts
@@ -82,7 +84,50 @@ devs-online/
 | Script | Description |
 |--------|-------------|
 | `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Build for production |
 | `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 | `npm run db:push` | Push schema to database |
 | `npm run db:studio` | Open Drizzle Studio |
 
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import project in Vercel
+3. Add `DATABASE_URL` environment variable
+4. Deploy!
+
+### Other Platforms
+
+For Railway, Render, or other platforms:
+- Build command: `npm run build`
+- Start command: `npm run start`
+- Add `DATABASE_URL` environment variable
+
+## 🔒 Authentication
+
+The platform uses a secure, cookie-based authentication system:
+
+- **Server Actions** for login/signup
+- **bcryptjs** for password hashing
+- **HTTP-only cookies** for session tokens
+- **Protected routes** using middleware
+
+## 📝 Environment Variables
+
+Create a `.env` file with:
+
+```env
+DATABASE_URL=your_neon_database_url
+NODE_ENV=development
+```
+
+## 🤝 Contributing
+
+This is a private project for Bennett University students.
+
+## 📄 License
+
+Private - All Rights Reserved

@@ -31,6 +31,7 @@ export const companies = pgTable('companies', {
     name: varchar('name', { length: 100 }).notNull().unique(),
     slug: varchar('slug', { length: 100 }).notNull().unique(),
     logoUrl: varchar('logo_url', { length: 500 }),
+    description: text('description'),
     industry: varchar('industry', { length: 100 }),
     visitedYear: integer('visited_year'),
     createdAt: timestamp('created_at').defaultNow().notNull()
