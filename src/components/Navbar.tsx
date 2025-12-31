@@ -3,11 +3,22 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { logout } from '@/actions/auth';
 
 interface User {
     id: string;
     name: string;
     email: string;
+}
+
+function LogoutButton() {
+    return (
+        <form action={logout}>
+            <button type="submit" className="px-4 py-2 text-gray-300 hover:text-white transition-colors border border-white/20 rounded-lg hover:border-white/40">
+                Logout
+            </button>
+        </form>
+    );
 }
 
 export function Navbar({ user }: { user?: User | null }) {
@@ -32,12 +43,7 @@ export function Navbar({ user }: { user?: User | null }) {
                                 </Link>
                                 <div className="flex items-center space-x-4">
                                     <span className="text-gray-400">{user.name}</span>
-                                    {/* TODO: Add proper logout action */}
-                                    <form action="/api/auth/logout" method="POST">
-                                        <button type="submit" className="px-4 py-2 text-gray-300 hover:text-white transition-colors border border-white/20 rounded-lg hover:border-white/40">
-                                            Logout
-                                        </button>
-                                    </form>
+                                    <LogoutButton />
                                 </div>
                             </>
                         ) : (
@@ -78,7 +84,7 @@ export function Navbar({ user }: { user?: User | null }) {
                                 <Link href="/dashboard" className="block text-gray-300 hover:text-white">Dashboard</Link>
                                 <div className="pt-3 border-t border-white/10">
                                     <p className="text-gray-400 text-sm mb-2">{user.name}</p>
-                                    <form action="/api/auth/logout" method="POST">
+                                    <form action={logout} className="w-full">
                                         <button type="submit" className="w-full px-4 py-2 text-gray-300 hover:text-white transition-colors border border-white/20 rounded-lg hover:border-white/40 text-left">
                                             Logout
                                         </button>
