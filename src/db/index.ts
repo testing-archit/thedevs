@@ -8,8 +8,7 @@ if (!connectionString) {
     throw new Error('DATABASE_URL is not set');
 }
 
-const client = neon(connectionString);
+const sql = neon(connectionString);
 
-// @ts-ignore
-export const db = drizzle(client, { schema });
+export const db = drizzle(sql as any, { schema });
 export * from './schema';
