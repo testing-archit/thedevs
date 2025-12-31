@@ -7,4 +7,5 @@ drizzle
 *.log
 .DS_Store
 .vercel
+.next
 
