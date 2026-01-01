@@ -14,12 +14,26 @@ A modern placement preparation platform built with **Next.js 14+** using the App
 
 ## ✨ Features
 
-- 🔐 Secure authentication using Server Actions
-- 🎨 Modern, responsive UI with glassmorphism design
-- ⚡ Server-side rendering for optimal performance
-- 🛡️ Protected routes with session management
-- 📊 User dashboard with profile management
-- 🎯 SEO-optimized pages
+- 🔐 **Secure Authentication**
+  - JWT-based session management with HTTP-only cookies
+  - Password hashing with bcryptjs (10 salt rounds)
+  - Password visibility toggle for better UX
+  - Protected routes with session validation
+- 🎨 **Modern UI/UX**
+  - Glassmorphism design with dark theme
+  - Fully responsive layout (mobile, tablet, desktop)
+  - Smooth animations and transitions
+  - Custom gradient color scheme
+- ⚡ **Performance**
+  - Server-side rendering with React Server Components
+  - Optimized static assets and code splitting
+  - Edge-ready architecture
+- 📚 **Platform Features** (Coming Soon)
+  - Previous Year Questions (PYQs) from top companies
+  - Company-wise problem categorization
+  - Topic-based filtering
+  - Code submission and testing
+  - Progress tracking and analytics
 
 ## 🛠️ Getting Started
 
@@ -105,6 +119,27 @@ For Railway, Render, or other platforms:
 - Build command: `npm run build`
 - Start command: `npm run start`
 - Add `DATABASE_URL` environment variable
+
+## 🗄️ Database Schema
+
+The platform uses **Drizzle ORM** with PostgreSQL (Neon serverless):
+
+- **Users**: Student accounts with course and specialization info
+- **Sessions**: Secure token-based session management
+- **Companies**: Tech companies database for PYQs
+- **Topics**: Data structures, algorithms, system design, etc.
+- **Problems**: Previous year questions with test cases
+- **Submissions**: Code submissions with evaluation results
+
+### Database Commands
+
+```bash
+# Push schema changes to database
+npm run db:push
+
+# Open Drizzle Studio (database GUI)
+npm run db:studio
+```
 
 ## 🔒 Authentication
 
