@@ -7,6 +7,27 @@ import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const problem = await db.query.problems.findFirst({
+        where: eq(problems.id, id),
+        with: {
+            company: true,
+        },
+    });
+
+    if (!problem) {
+        return {
+            title: 'Problem Not Found | The Devs',
+        };
+    }
+
+    return {
+        title: `${problem.title} - ${problem.company?.name || 'Problem'} | The Devs`,
+        description: problem.description.substring(0, 160),
+    };
+}
+
 export default async function ProblemDetailsPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const user = await getCurrentUser();
@@ -40,8 +61,8 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${problem.difficulty === 'easy' ? 'bg-green-500/10 text-green-500' :
-                                            problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                'bg-red-500/10 text-red-500'
+                                        problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                                            'bg-red-500/10 text-red-500'
                                         }`}>
                                         {problem.difficulty}
                                     </span>

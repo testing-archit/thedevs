@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 
@@ -61,8 +62,8 @@ export default async function DashboardPage() {
                                 <p className="text-gray-400 text-sm mb-1">Subscription</p>
                                 <p className="text-white font-medium">
                                     <span className={`px-3 py-1 rounded-full text-sm ${user.subscription === 'pro'
-                                            ? 'bg-primary/20 text-primary'
-                                            : 'bg-gray-700 text-gray-300'
+                                        ? 'bg-primary/20 text-primary'
+                                        : 'bg-gray-700 text-gray-300'
                                         }`}>
                                         {user.subscription === 'pro' ? 'Pro' : 'Free'}
                                     </span>
@@ -78,20 +79,55 @@ export default async function DashboardPage() {
                         <StatCard value="0%" label="Success Rate" />
                     </div>
 
-                    {/* Coming Soon Section */}
-                    <div className="glass-card rounded-2xl p-8 text-center">
-                        <div className="max-w-2xl mx-auto">
-                            <h2 className="text-3xl font-bold mb-4">Practice Problems Coming Soon!</h2>
-                            <p className="text-gray-400 text-lg mb-6">
-                                We're working hard to bring you the best collection of Previous Year Questions from top companies.
-                            </p>
-                            <div className="flex flex-wrap justify-center gap-4">
-                                <FeatureTag text="📚 Problem Sets" />
-                                <FeatureTag text="🏢 Company Wise" />
-                                <FeatureTag text="📊 Progress Tracking" />
-                                <FeatureTag text="⚡ Code Execution" />
-                            </div>
+                    {/* Quick Access Cards */}
+                    <div className="mb-8">
+                        <h2 className="text-2xl font-bold mb-6">Quick Access</h2>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <QuickAccessCard
+                                title="Browse Problems"
+                                description="Practice from our collection of PYQs"
+                                href="/problems"
+                                icon={
+                                    <svg className="w-8 h-8text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                }
+                            />
+                            <QuickAccessCard
+                                title="Companies"
+                                description="Explore company-wise problems"
+                                href="/companies"
+                                icon={
+                                    <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                }
+                            />
+                            <QuickAccessCard
+                                title="Topics"
+                                description="Practice by topic category"
+                                href="/topics"
+                                icon={
+                                    <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                }
+                            />
                         </div>
+                    </div>
+
+                    {/* Coming Soon Section - More Focused */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <ComingSoonCard
+                            title="⚡ Code Execution"
+                            description="Run and test your code directly in the browser with real-time feedback"
+                            progress={65}
+                        />
+                        <ComingSoonCard
+                            title="🏆 Leaderboards"
+                            description="Compete with peers and track your ranking on the platform"
+                            progress={30}
+                        />
                     </div>
                 </div>
             </div>
@@ -110,10 +146,42 @@ function StatCard({ value, label }: { value: string; label: string }) {
     );
 }
 
-function FeatureTag({ text }: { text: string }) {
+function QuickAccessCard({ title, description, href, icon }: { title: string; description: string; href: string; icon: React.ReactNode }) {
     return (
-        <div className="px-4 py-2 bg-primary/20 rounded-lg text-primary font-medium">
-            {text}
+        <Link href={href} className="group glass-card rounded-2xl p-6 hover:border-primary/50 transition-all duration-300">
+            <div className="mb-4 group-hover:scale-110 transition-transform">
+                {icon}
+            </div>
+            <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{title}</h3>
+            <p className="text-gray-400 text-sm mb-4">{description}</p>
+            <div className="flex items-center text-primary font-semibold text-sm">
+                Explore
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </div>
+        </Link>
+    );
+}
+
+function ComingSoonCard({ title, description, progress }: { title: string; description: string; progress: number }) {
+    return (
+        <div className="glass-card rounded-2xl p-6 border border-primary/20">
+            <h3 className="text-xl font-bold mb-2">{title}</h3>
+            <p className="text-gray-400 text-sm mb-4">{description}</p>
+            <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Implementation Progress</span>
+                    <span className="text-primary font-medium">{progress}%</span>
+                </div>
+                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div
+                        className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500"
+                        style={{ width: `${progress}%` }}
+                    ></div>
+                </div>
+            </div>
         </div>
     );
 }
+
