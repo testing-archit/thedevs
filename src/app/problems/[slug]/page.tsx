@@ -8,6 +8,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import { ProblemTimer } from '@/components/ProblemTimer';
 import { FeatureItem, StatRow } from '@/components/ProblemHelpers';
+import { ProgressButtons } from '@/components/ProgressButtons';
+import { getProblemStatus } from '@/actions/progress';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;

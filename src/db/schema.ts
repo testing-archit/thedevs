@@ -7,6 +7,7 @@ export const userRoleEnum = pgEnum('user_role', ['student', 'admin']);
 export const subscriptionEnum = pgEnum('subscription_status', ['free', 'pro', 'expired']);
 export const difficultyEnum = pgEnum('difficulty', ['easy', 'medium', 'hard']);
 export const submissionStatusEnum = pgEnum('submission_status', ['pending', 'accepted', 'wrong_answer', 'time_limit', 'runtime_error']);
+export const progressStatusEnum = pgEnum('progress_status', ['attempted', 'solved']);
 
 // ============ USERS ============
 export const users = pgTable('users', {
@@ -89,10 +90,21 @@ export const sessions = pgTable('sessions', {
     createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
+// ============ USER PROGRESS ============
+export const userProgress = pgTable('user_progress', {
+    id: uuid('id').defaultRandom().primaryKey(),
+    userId: uuid('user_id').references(() => users.id).notNull(),
+    problemId: uuid('problem_id').references(() => problems.id).notNull(),
+    status: progressStatusEnum('status').notNull(), // 'attempted' or 'solved'
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull()
+});
+
 // ============ RELATIONS ============
 export const usersRelations = relations(users, ({ many }) => ({
     submissions: many(submissions),
-    sessions: many(sessions)
+    sessions: many(sessions),
+    progress: many(userProgress)
 }));
 
 export const companiesRelations = relations(companies, ({ many }) => ({
@@ -106,7 +118,8 @@ export const topicsRelations = relations(topics, ({ many }) => ({
 export const problemsRelations = relations(problems, ({ one, many }) => ({
     company: one(companies, { fields: [problems.companyId], references: [companies.id] }),
     topic: one(topics, { fields: [problems.topicId], references: [topics.id] }),
-    submissions: many(submissions)
+    submissions: many(submissions),
+    progress: many(userProgress)
 }));
 
 export const submissionsRelations = relations(submissions, ({ one }) => ({
@@ -116,4 +129,9 @@ export const submissionsRelations = relations(submissions, ({ one }) => ({
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
     user: one(users, { fields: [sessions.userId], references: [users.id] })
+}));
+
+export const userProgressRelations = relations(userProgress, ({ one }) => ({
+    user: one(users, { fields: [userProgress.userId], references: [users.id] }),
+    problem: one(problems, { fields: [userProgress.problemId], references: [problems.id] })
 }));
