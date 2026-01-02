@@ -5,6 +5,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
     title: 'Browse Topics | The Devs',
     description: 'Browse problems by topic category',

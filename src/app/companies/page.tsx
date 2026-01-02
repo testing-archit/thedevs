@@ -7,6 +7,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
     title: 'Browse Companies | The Devs',
     description: 'Practice previous year questions from top tech companies',
