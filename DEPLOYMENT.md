@@ -2,11 +2,11 @@
 
 ## Node.js Version Configuration
 
-The project is configured to use **Node.js 20.x**:
+The project is configured to use **Node.js 24.x**:
 
-- `package.json` → `"engines": { "node": "20.x" }`
-- `.nvmrc` → `20` (for nvm users)
-- `.node-version` → `20` (for asdf/nodenv users)
+- `package.json` → `"engines": { "node": "24.x" }`
+- `.nvmrc` → `24` (for nvm users)
+- `.node-version` → `24` (for asdf/nodenv users)
 
 ## Platform-Specific Settings
 
@@ -17,7 +17,7 @@ The project is configured to use **Node.js 20.x**:
 - **Environment Variables**: Add `DATABASE_URL`
 
 ### Render
-- **Node Version**: Set to `20` in dashboard (or auto-detected)
+- **Node Version**: Set to `24` in dashboard (or auto-detected)
 - **Build Command**: `npm install`
 - **Start Command**: `npm start`
 - **Environment Variables**: Add `DATABASE_URL`
@@ -29,7 +29,7 @@ The project is configured to use **Node.js 20.x**:
 - **Environment Variables**: `fly secrets set DATABASE_URL=...`
 
 ### DigitalOcean App Platform
-- **Node Version**: Set to `20` in settings
+- **Node Version**: Set to `24` in settings
 - **Build Command**: `npm install`
 - **Start Command**: `npm start`
 - **Environment Variables**: Add `DATABASE_URL`
@@ -39,6 +39,20 @@ The project is configured to use **Node.js 20.x**:
 - **Build Command**: `npm install`
 - **Start Command**: `npm start` (from Procfile)
 - **Environment Variables**: `heroku config:set DATABASE_URL=...`
+
+### Vercel (Recommended for Next.js)
+- **Node Version**: Set to `24.x` in Project Settings → General → Node.js Version
+- **Framework Preset**: Next.js (auto-detected)
+- **Build Command**: `npm run build` (auto-detected)
+- **Output Directory**: `.next` (auto-detected)
+- **Install Command**: `npm install` (auto-detected)
+- **Environment Variables**: 
+  - Add `DATABASE_URL` in Project Settings → Environment Variables
+  - Ensure it's available for Production, Preview, and Development environments
+- **Deployment**: 
+  1. Connect your GitHub repository in Vercel dashboard
+  2. Configure environment variables
+  3. Deploy automatically on every push to main branch
 
 ## Environment Variables Required
 
