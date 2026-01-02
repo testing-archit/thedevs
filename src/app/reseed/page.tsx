@@ -3,6 +3,9 @@ import { companies, problems, topics } from '@/db/schema';
 import { seedData } from '@/actions/seed';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
+
 async function forceReseed() {
     'use server';
 

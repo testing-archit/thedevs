@@ -3,6 +3,9 @@ import { seedData } from '@/actions/seed';
 import { redirect } from 'next/navigation';
 import { companies } from '@/db/schema';
 
+export const dynamic = 'force-dynamic';
+
+
 async function handleSeed() {
     'use server';
     await seedData();
