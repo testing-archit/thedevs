@@ -10,6 +10,8 @@ import { ProblemTimer } from '@/components/ProblemTimer';
 import { FeatureItem, StatRow } from '@/components/ProblemHelpers';
 import { ProgressButtons } from '@/components/ProgressButtons';
 import { getProblemStatus } from '@/actions/progress';
+import { CommentSection } from '@/components/CommentSection';
+import { getComments } from '@/actions/comments';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -46,6 +48,9 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
     if (!problem) {
         notFound();
     }
+
+    const problemStatus = await getProblemStatus(problem.id);
+    const comments = await getComments(problem.id);
 
     return (
         <main className="min-h-screen flex flex-col bg-dark text-white">
@@ -195,6 +200,15 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Discussion Section */}
+                    <div className="mt-12">
+                        <CommentSection
+                            problemId={problem.id}
+                            initialComments={comments}
+                            currentUserId={user?.id}
+                        />
                     </div>
                 </div>
             </div>
