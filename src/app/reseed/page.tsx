@@ -2,6 +2,8 @@ import { db } from '@/db';
 import { companies, problems, topics } from '@/db/schema';
 import { seedData } from '@/actions/seed';
 import Link from 'next/link';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +18,12 @@ async function forceReseed() {
 
     // Re-seed with new comprehensive data
     await seedData();
+
+    // Clear ALL cached pages to force fresh data
+    revalidatePath('/', 'layout');
+
+    // Redirect to companies page with cache-busting timestamp
+    redirect('/companies?t=' + Date.now());
 }
 
 export default async function ForceReseedPage() {
