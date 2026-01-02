@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { logout } from '@/actions/auth';
+import { GlobalSearch } from './GlobalSearch';
 
 interface User {
     id: string;
@@ -50,6 +51,7 @@ export function Navbar({ user }: { user?: User | null }) {
                                 <Link href="/topics" className="text-gray-300 hover:text-white transition-colors">
                                     Topics
                                 </Link>
+                                <GlobalSearch />
                                 <div className="flex items-center space-x-4">
                                     <Link href="/profile" className="text-gray-400 hover:text-white transition-colors">{user.name}</Link>
                                     <LogoutButton />
@@ -67,54 +69,57 @@ export function Navbar({ user }: { user?: User | null }) {
                             </div>
                         )}
                     </div>
+                </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden text-white"
-                    >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            {!mobileMenuOpen ? (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                            ) : (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                            )}
-                        </svg>
-                    </button>
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="md:hidden text-white"
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {!mobileMenuOpen ? (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                        ) : (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        )}
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+            {/* Mobile Menu */ }
+    {
+        mobileMenuOpen && (
+            <div className="md:hidden glass-card border-t border-white/10">
+                <div className="px-4 py-4 space-y-3">
+                    {user ? (
+                        <>
+                            <Link href="/dashboard" className="block text-gray-300 hover:text-white">Dashboard</Link>
+                            <Link href="/problems" className="block text-gray-300 hover:text-white">Problems</Link>
+                            <Link href="/companies" className="block text-gray-300 hover:text-white">Companies</Link>
+                            <Link href="/topics" className="block text-gray-300 hover:text-white">Topics</Link>
+                            <div className="pt-3 border-t border-white/10">
+                                <Link href="/profile" className="block text-primary hover:text-white mb-2">{user.name} (View Profile)</Link>
+                                <form action={logout} className="w-full">
+                                    <button type="submit" className="w-full px-4 py-2 text-gray-300 hover:text-white transition-colors border border-white/20 rounded-lg hover:border-white/40 text-left">
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/#features" className="block text-gray-300 hover:text-white">Features</Link>
+                            <Link href="/#how-it-works" className="block text-gray-300 hover:text-white">How It Works</Link>
+                            <Link href="/#pricing" className="block text-gray-300 hover:text-white">Pricing</Link>
+                            <Link href="/login" className="block text-gray-300 hover:text-white font-medium">Login</Link>
+                            <Link href="/signup" className="block px-5 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-center font-medium text-white">Sign Up</Link>
+                        </>
+                    )}
                 </div>
             </div>
-
-            {/* Mobile Menu */}
-            {mobileMenuOpen && (
-                <div className="md:hidden glass-card border-t border-white/10">
-                    <div className="px-4 py-4 space-y-3">
-                        {user ? (
-                            <>
-                                <Link href="/dashboard" className="block text-gray-300 hover:text-white">Dashboard</Link>
-                                <Link href="/problems" className="block text-gray-300 hover:text-white">Problems</Link>
-                                <Link href="/companies" className="block text-gray-300 hover:text-white">Companies</Link>
-                                <Link href="/topics" className="block text-gray-300 hover:text-white">Topics</Link>
-                                <div className="pt-3 border-t border-white/10">
-                                    <Link href="/profile" className="block text-primary hover:text-white mb-2">{user.name} (View Profile)</Link>
-                                    <form action={logout} className="w-full">
-                                        <button type="submit" className="w-full px-4 py-2 text-gray-300 hover:text-white transition-colors border border-white/20 rounded-lg hover:border-white/40 text-left">
-                                            Logout
-                                        </button>
-                                    </form>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <Link href="/#features" className="block text-gray-300 hover:text-white">Features</Link>
-                                <Link href="/#how-it-works" className="block text-gray-300 hover:text-white">How It Works</Link>
-                                <Link href="/#pricing" className="block text-gray-300 hover:text-white">Pricing</Link>
-                                <Link href="/login" className="block text-gray-300 hover:text-white font-medium">Login</Link>
-                                <Link href="/signup" className="block px-5 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-center font-medium text-white">Sign Up</Link>
-                            </>
-                        )}
-                    </div>
-                </div>
-            )}
-        </nav>
+        )
+    }
+        </nav >
     );
 }
