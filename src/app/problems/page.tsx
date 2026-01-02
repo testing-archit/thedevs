@@ -21,6 +21,7 @@ export default async function AllProblemsPage() {
     // Transform for client component
     const problemsData = allProblems.map((p) => ({
         id: p.id,
+        slug: p.slug,
         title: p.title,
         difficulty: p.difficulty as 'easy' | 'medium' | 'hard',
         companyName: p.company?.name || 'General',

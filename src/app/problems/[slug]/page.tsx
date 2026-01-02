@@ -9,10 +9,10 @@ import { notFound } from 'next/navigation';
 import { ProblemTimer } from '@/components/ProblemTimer';
 import { FeatureItem, StatRow } from '@/components/ProblemHelpers';
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const problem = await db.query.problems.findFirst({
-        where: eq(problems.id, id),
+        where: eq(problems.slug, slug),
         with: {
             company: true,
         },
@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
 }
 
-export default async function ProblemDetailsPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params;
+export default async function ProblemDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const user = await getCurrentUser();
     const problem = await db.query.problems.findFirst({
-        where: eq(problems.id, id),
+        where: eq(problems.slug, slug),
         with: {
             company: true,
             topic: true,
@@ -52,7 +52,7 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
             <div className="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto">
                     <div className="mb-12">
-                        <Link href={`/companies/${problem.companyId}`} className="text-primary hover:underline mb-4 inline-block flex items-center">
+                        <Link href={`/companies/${problem.company?.slug}`} className="text-primary hover:underline mb-4 inline-block flex items-center">
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                             </svg>
@@ -63,8 +63,8 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${problem.difficulty === 'easy' ? 'bg-green-500/10 text-green-500' :
-                                            problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                'bg-red-500/10 text-red-500'
+                                        problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                                            'bg-red-500/10 text-red-500'
                                         }`}>
                                         {problem.difficulty}
                                     </span>
@@ -124,7 +124,7 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                             <div className="glass-card rounded-2xl p-6 border-2 border-primary/40 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
                                 {/* Animated background */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 animate-pulse"></div>
-                                
+
                                 <div className="relative z-10">
                                     <div className="flex items-start mb-4">
                                         <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mr-4 flex-shrink-0">
@@ -155,7 +155,7 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                                             <span className="text-primary font-bold">65%</span>
                                         </div>
                                         <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                            <div 
+                                            <div
                                                 className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 animate-pulse"
                                                 style={{ width: '65%' }}
                                             ></div>

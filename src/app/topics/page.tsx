@@ -50,7 +50,7 @@ export default async function TopicsPage() {
                             {allTopics.map((topic) => (
                                 <Link
                                     key={topic.id}
-                                    href={`/topics/${topic.id}`}
+                                    href={`/topics/${topic.slug}`}
                                     className="group glass-card rounded-2xl p-6 hover:border-primary/50 transition-all duration-300"
                                 >
                                     <div className="mb-4">

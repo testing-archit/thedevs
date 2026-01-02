@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 interface Problem {
     id: string;
+    slug: string;
     title: string;
     difficulty: 'easy' | 'medium' | 'hard';
     companyName: string;
@@ -110,7 +111,7 @@ export function ProblemsTable({ problems }: { problems: Problem[] }) {
                                             </div>
                                         </td>
                                         <td className="px-8 py-5">
-                                            <Link href={`/problems/${problem.id}`} className="font-medium text-lg hover:text-primary transition-colors flex items-center">
+                                            <Link href={`/problems/${problem.slug}`} className="font-medium text-lg hover:text-primary transition-colors flex items-center">
                                                 {problem.title}
                                                 {problem.isPremium && (
                                                     <svg className="w-4 h-4 ml-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -135,7 +136,7 @@ export function ProblemsTable({ problems }: { problems: Problem[] }) {
                                         </td>
                                         <td className="px-8 py-5 text-right">
                                             <Link
-                                                href={`/problems/${problem.id}`}
+                                                href={`/problems/${problem.slug}`}
                                                 className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all group-hover:scale-110"
                                             >
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
