@@ -100,11 +100,32 @@ export const userProgress = pgTable('user_progress', {
     updatedAt: timestamp('updated_at').defaultNow().notNull()
 });
 
+// ============ COMMENTS ============
+export const comments = pgTable('comments', {
+    id: uuid('id').defaultRandom().primaryKey(),
+    userId: uuid('user_id').references(() => users.id).notNull(),
+    problemId: uuid('problem_id').references(() => problems.id).notNull(),
+    content: text('content').notNull(),
+    upvotes: integer('upvotes').default(0).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull()
+});
+
+// ============ COMMENT VOTES ============
+export const commentVotes = pgTable('comment_votes', {
+    id: uuid('id').defaultRandom().primaryKey(),
+    userId: uuid('user_id').references(() => users.id).notNull(),
+    commentId: uuid('comment_id').references(() => comments.id).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull()
+});
+
 // ============ RELATIONS ============
 export const usersRelations = relations(users, ({ many }) => ({
     submissions: many(submissions),
     sessions: many(sessions),
-    progress: many(userProgress)
+    progress: many(userProgress),
+    comments: many(comments),
+    commentVotes: many(commentVotes)
 }));
 
 export const companiesRelations = relations(companies, ({ many }) => ({
@@ -119,7 +140,8 @@ export const problemsRelations = relations(problems, ({ one, many }) => ({
     company: one(companies, { fields: [problems.companyId], references: [companies.id] }),
     topic: one(topics, { fields: [problems.topicId], references: [topics.id] }),
     submissions: many(submissions),
-    progress: many(userProgress)
+    progress: many(userProgress),
+    comments: many(comments)
 }));
 
 export const submissionsRelations = relations(submissions, ({ one }) => ({
@@ -134,4 +156,15 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 export const userProgressRelations = relations(userProgress, ({ one }) => ({
     user: one(users, { fields: [userProgress.userId], references: [users.id] }),
     problem: one(problems, { fields: [userProgress.problemId], references: [problems.id] })
+}));
+
+export const commentsRelations = relations(comments, ({ one, many }) => ({
+    user: one(users, { fields: [comments.userId], references: [users.id] }),
+    problem: one(problems, { fields: [comments.problemId], references: [problems.id] }),
+    votes: many(commentVotes)
+}));
+
+export const commentVotesRelations = relations(commentVotes, ({ one }) => ({
+    user: one(users, { fields: [commentVotes.userId], references: [users.id] }),
+    comment: one(comments, { fields: [commentVotes.commentId], references: [comments.id] })
 }));
