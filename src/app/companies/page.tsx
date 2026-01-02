@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
+import { AuthGate } from '@/components/AuthGate';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,7 +38,32 @@ export default async function CompaniesPage() {
                         </p>
                     </div>
 
-                    {allCompanies.length === 0 ? (
+                    {!user ? (
+                        <AuthGate>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {allCompanies.slice(0, 6).map((company) => (
+                                    <div key={company.id} className="glass-card rounded-2xl p-8">
+                                        <div className="flex items-center space-x-4 mb-6">
+                                            <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center overflow-hidden p-2">
+                                                {company.logoUrl ? (
+                                                    <img src={company.logoUrl} alt={company.name} className="w-full h-full object-contain" />
+                                                ) : (
+                                                    <span className="text-2xl font-bold text-primary">{company.name[0]}</span>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <h2 className="text-2xl font-bold">{company.name}</h2>
+                                                <p className="text-gray-400 text-sm">{company.problems.length} Problems</p>
+                                            </div>
+                                        </div>
+                                        <p className="text-gray-400 line-clamp-2 mb-6">
+                                            {company.description || `Prepare for ${company.name} placements with curated PYQs.`}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </AuthGate>
+                    ) : allCompanies.length === 0 ? (
                         <div className="text-center py-24 glass-card rounded-3xl">
                             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                                 <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,6 +119,6 @@ export default async function CompaniesPage() {
             </div>
 
             <Footer />
-        </main>
+        </main >
     );
 }

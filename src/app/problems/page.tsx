@@ -3,6 +3,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
 import { ProblemsTable } from '@/components/ProblemsTable';
+import { AuthGate } from '@/components/AuthGate';
 
 export const metadata = {
     title: 'All Problems | The Devs',
@@ -44,7 +45,22 @@ export default async function AllProblemsPage() {
                         </p>
                     </div>
 
-                    {allProblems.length === 0 ? (
+                    {!user ? (
+                        <AuthGate>
+                            <div className="glass-card rounded-3xl overflow-hidden border border-white/10">
+                                <table className="w-full text-left">
+                                    <thead className="bg-white/5 border-b border-white/10">
+                                        <tr>
+                                            <th className="px-8 py-5 font-semibold">Status</th>
+                                            <th className="px-8 py-5 font-semibold">Problem Title</th>
+                                            <th className="px-8 py-5 font-semibold">Difficulty</th>
+                                            <th className="px-8 py-5 font-semibold">Company</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </AuthGate>
+                    ) : allProblems.length === 0 ? (
                         <div className="text-center py-24 glass-card rounded-3xl">
                             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                                 <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
