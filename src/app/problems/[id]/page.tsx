@@ -6,6 +6,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { getCurrentUser } from '@/lib/auth';
 import { notFound } from 'next/navigation';
+import { ProblemTimer } from '@/components/ProblemTimer';
+import { FeatureItem, StatRow } from '@/components/ProblemHelpers';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -61,8 +63,8 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${problem.difficulty === 'easy' ? 'bg-green-500/10 text-green-500' :
-                                        problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
-                                            'bg-red-500/10 text-red-500'
+                                            problem.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                                                'bg-red-500/10 text-red-500'
                                         }`}>
                                         {problem.difficulty}
                                     </span>
@@ -117,46 +119,77 @@ export default async function ProblemDetailsPage({ params }: { params: Promise<{
                             </div>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="glass-card rounded-3xl p-8 border border-primary/30 relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
-                                <div className="relative z-10 text-center">
-                                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                                        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-2xl font-bold mb-3">Code Editor</h3>
-                                    <p className="text-gray-400 mb-6"> Our interactive code editor is coming soon! You will be able to solve and test your solutions directly in the browser.</p>
-                                    <div className="space-y-3">
-                                        <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                            <div className="w-2/3 h-full bg-primary/50 animate-pulse"></div>
+                        <div className="space-y-6">
+                            {/* Code Editor Coming Soon - PROMINENT */}
+                            <div className="glass-card rounded-2xl p-6 border-2 border-primary/40 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
+                                {/* Animated background */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 animate-pulse"></div>
+                                
+                                <div className="relative z-10">
+                                    <div className="flex items-start mb-4">
+                                        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mr-4 flex-shrink-0">
+                                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                            </svg>
                                         </div>
-                                        <p className="text-xs text-primary font-medium uppercase tracking-wider">Implementation in progress</p>
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-1 flex items-center">
+                                                Code Editor Coming Soon!
+                                                <span className="ml-2 px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded-full">In Progress</span>
+                                            </h3>
+                                            <p className="text-sm text-gray-400">We're building something amazing</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3 mb-4">
+                                        <FeatureItem text="Multi-language support (C++, Python, Java, JavaScript)" />
+                                        <FeatureItem text="Real-time code execution with test cases" />
+                                        <FeatureItem text="Syntax highlighting & auto-completion" />
+                                        <FeatureItem text="Save your solutions automatically" />
+                                        <FeatureItem text="Compare with optimal solutions" />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-xs">
+                                            <span className="text-gray-400">Development Progress</span>
+                                            <span className="text-primary font-bold">65%</span>
+                                        </div>
+                                        <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                            <div 
+                                                className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 animate-pulse"
+                                                style={{ width: '65%' }}
+                                            ></div>
+                                        </div>
+                                        <p className="text-xs text-gray-500 italic text-center pt-1">
+                                            ⚡ Expected launch: Q1 2026
+                                        </p>
+                                    </div>
+
+                                    {/* Call to action */}
+                                    <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10">
+                                        <p className="text-xs text-gray-400 text-center">
+                                            💡 For now, practice solving on your local IDE and we'll notify you when the editor is ready!
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="glass-card rounded-3xl p-8 border border-white/10">
-                                <h3 className="text-xl font-bold mb-6 flex items-center">
-                                    <svg className="w-5 h-5 mr-3 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            {/* Timer Component */}
+                            <ProblemTimer />
+
+                            {/* Problem Stats */}
+                            <div className="glass-card rounded-2xl p-6 border border-white/10">
+                                <h3 className="font-bold mb-4 flex items-center">
+                                    <svg className="w-5 h-5 mr-2 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                     </svg>
-                                    Stats & Info
+                                    Problem Stats
                                 </h3>
                                 <div className="space-y-4">
-                                    <div className="flex justify-between items-center py-3 border-b border-white/5">
-                                        <span className="text-gray-400">Acceptance Rate</span>
-                                        <span className="font-medium">68.4%</span>
-                                    </div>
-                                    <div className="flex justify-between items-center py-3 border-b border-white/5">
-                                        <span className="text-gray-400">Total Solved</span>
-                                        <span className="font-medium">1,245</span>
-                                    </div>
-                                    <div className="flex justify-between items-center py-3 border-b border-white/5">
-                                        <span className="text-gray-400">Avg. Time</span>
-                                        <span className="font-medium">25 mins</span>
-                                    </div>
+                                    <StatRow label="Acceptance Rate" value="68.4%" />
+                                    <StatRow label="Total Solved" value="1,245" />
+                                    <StatRow label="Average Time" value="25 mins" />
+                                    <StatRow label="Your Status" value="Not Attempted" />
                                 </div>
                             </div>
                         </div>
