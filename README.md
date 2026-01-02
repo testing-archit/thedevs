@@ -1,6 +1,6 @@
 # The Devs - Bennett University PYQ Platform
 
-A modern placement preparation platform built with **Next.js 14+** using the App Router architecture.
+A comprehensive placement preparation platform built with **Next.js 14+** for Bennett University students, featuring company-wise PYQs, progress tracking, and collaborative learning tools.
 
 ## 🚀 Tech Stack
 
@@ -10,30 +10,54 @@ A modern placement preparation platform built with **Next.js 14+** using the App
 - **Styling**: Tailwind CSS v3
 - **Database**: PostgreSQL (Neon) with Drizzle ORM
 - **Auth**: Server Actions with bcryptjs & HTTP-only cookies
+- **Notifications**: Sonner (Toast notifications)
 - **Language**: TypeScript
 
 ## ✨ Features
 
-- 🔐 **Secure Authentication**
-  - JWT-based session management with HTTP-only cookies
-  - Password hashing with bcryptjs (10 salt rounds)
-  - Password visibility toggle for better UX
-  - Protected routes with session validation
-- 🎨 **Modern UI/UX**
-  - Glassmorphism design with dark theme
-  - Fully responsive layout (mobile, tablet, desktop)
-  - Smooth animations and transitions
-  - Custom gradient color scheme
-- ⚡ **Performance**
-  - Server-side rendering with React Server Components
-  - Optimized static assets and code splitting
-  - Edge-ready architecture
-- 📚 **Platform Features** (Coming Soon)
-  - Previous Year Questions (PYQs) from top companies
-  - Company-wise problem categorization
-  - Topic-based filtering
-  - Code submission and testing
-  - Progress tracking and analytics
+### 🔐 Authentication & Security
+- JWT-based session management with HTTP-only cookies
+- Password hashing with bcryptjs (10 salt rounds)
+- Password visibility toggle for improved UX
+- Protected routes with session validation
+- Secure server actions for all mutations
+
+### 📚 Problem Bank & Learning
+- **Company-wise Problems**: Curated PYQs from top tech companies
+- **Topic-based Organization**: Browse by data structures, algorithms, system design, and more
+- **Problem Difficulty Levels**: Easy, Medium, and Hard categorization
+- **Rich Problem Details**: Comprehensive descriptions, constraints, and examples
+- **Problem Timer**: Built-in timer to track solving duration
+- **Progress Tracking**: Mark problems as Todo, In Progress, or Completed
+- **User Statistics**: Track solved problems, accuracy, and topic-wise progress
+
+### 🔍 Search & Discovery
+- **Global Search**: Intelligent search across problems, companies, and topics
+- **Real-time Results**: Instant search with keyboard navigation support
+- **Filter Options**: Advanced filtering by company, topic, and difficulty
+- **Smart Ranking**: Relevance-based search results
+
+### 💬 Community Features
+- **Discussion Forums**: Comment sections on each problem for collaborative learning
+- **Nested Comments**: Reply to specific comments with threaded discussions
+- **User Interactions**: Edit and delete your own comments
+- **Real-time Updates**: Instant comment posting and updates
+
+### 🎨 UI/UX Excellence
+- **Modern Design**: Glassmorphism effects with a sleek dark theme
+- **Fully Responsive**: Optimized for mobile, tablet, and desktop
+- **Loading States**: Custom skeleton loaders for smooth transitions
+- **Error Handling**: Custom 404 and error pages with helpful navigation
+- **Toast Notifications**: Non-intrusive feedback for user actions
+- **Smooth Animations**: Transitions and micro-interactions throughout
+
+### ⚡ Performance & SEO
+- Server-side rendering with React Server Components
+- Optimized static assets and code splitting
+- Edge-ready architecture
+- Dynamic sitemap generation
+- SEO-optimized metadata for all pages
+- Robots.txt configuration for search engine indexing
 
 ## 🛠️ Getting Started
 
@@ -71,25 +95,47 @@ A modern placement preparation platform built with **Next.js 14+** using the App
 ```
 devs-online/
 ├── src/
-│   ├── app/                  # Next.js App Router pages
-│   │   ├── (auth)/           # Auth routes (login, signup)
-│   │   ├── dashboard/        # Protected dashboard
-│   │   ├── layout.tsx        # Root layout
-│   │   ├── page.tsx          # Landing page
-│   │   └── globals.css       # Global styles
-│   ├── components/           # React components
-│   │   ├── auth/             # Auth-related components
-│   │   └── *.tsx             # UI components
-│   ├── actions/              # Server Actions
-│   │   └── auth.ts           # Authentication actions
-│   ├── lib/                  # Utilities
-│   │   └── auth.ts           # Auth helper functions
-│   └── db/                   # Database schema & connection
-│       ├── index.ts          # Drizzle client
-│       └── schema.ts         # Database schema
-├── public/                   # Static assets
-├── tailwind.config.js        # Tailwind configuration
-├── next.config.mjs           # Next.js configuration
+│   ├── app/                      # Next.js App Router pages
+│   │   ├── (auth)/               # Auth routes (login, signup)
+│   │   ├── companies/            # Company-wise problem listings
+│   │   ├── topics/               # Topic-wise problem categorization
+│   │   ├── problems/             # Individual problem pages
+│   │   ├── dashboard/            # User dashboard with stats
+│   │   ├── profile/              # User profile management
+│   │   ├── api/                  # API routes
+│   │   ├── layout.tsx            # Root layout with metadata
+│   │   ├── page.tsx              # Landing page
+│   │   ├── error.tsx             # Error boundary page
+│   │   ├── not-found.tsx         # Custom 404 page
+│   │   ├── globals.css           # Global styles
+│   │   ├── sitemap.ts            # Dynamic sitemap generation
+│   │   └── robots.ts             # SEO robots configuration
+│   ├── components/               # React components
+│   │   ├── auth/                 # Auth-related components
+│   │   ├── ui/                   # Reusable UI components
+│   │   ├── GlobalSearch.tsx      # Search functionality
+│   │   ├── CommentSection.tsx    # Discussion forums
+│   │   ├── ProgressButtons.tsx   # Problem progress tracking
+│   │   ├── ProblemsTable.tsx     # Problem listings
+│   │   ├── ProblemTimer.tsx      # Timer for solving problems
+│   │   ├── Skeletons.tsx         # Loading states
+│   │   ├── Hero.tsx              # Landing page sections
+│   │   ├── Features.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── Pricing.tsx
+│   │   ├── Footer.tsx
+│   │   └── Navbar.tsx
+│   ├── actions/                  # Server Actions
+│   │   └── auth.ts               # Authentication actions
+│   ├── lib/                      # Utilities
+│   │   └── auth.ts               # Auth helper functions
+│   └── db/                       # Database schema & connection
+│       ├── index.ts              # Drizzle client
+│       └── schema.ts             # Database schema
+├── public/                       # Static assets
+├── tailwind.config.js            # Tailwind configuration
+├── next.config.mjs               # Next.js configuration
+├── vercel.json                   # Vercel deployment config
 └── package.json
 ```
 
@@ -122,14 +168,60 @@ For Railway, Render, or other platforms:
 
 ## 🗄️ Database Schema
 
-The platform uses **Drizzle ORM** with PostgreSQL (Neon serverless):
+The platform uses **Drizzle ORM** with PostgreSQL (Neon serverless). The schema includes:
 
-- **Users**: Student accounts with course and specialization info
-- **Sessions**: Secure token-based session management
-- **Companies**: Tech companies database for PYQs
-- **Topics**: Data structures, algorithms, system design, etc.
-- **Problems**: Previous year questions with test cases
-- **Submissions**: Code submissions with evaluation results
+### Core Tables
+
+- **Users**: Student accounts with profile information
+  - Email, password hash, name
+  - Course, specialization, year of study
+  - Role (student/admin) and subscription status
+  
+- **Companies**: Tech companies database
+  - Name, slug, logo URL
+  - Industry and year visited at Bennett
+  - Problem associations
+
+- **Topics**: Data structures & algorithm topics
+  - Name, slug, description
+  - Problem categorization (Arrays, Trees, DP, etc.)
+
+- **Problems**: Previous year questions
+  - Title, description, difficulty level
+  - Company and topic associations
+  - Starter code templates (multi-language support)
+  - Test cases with hidden/visible flags
+  - Constraints and hints
+  - Premium flag for subscription-gated content
+
+### User Interaction Tables
+
+- **Submissions**: Code submission tracking
+  - User and problem references
+  - Code, language, execution status
+  - Runtime, memory usage, test results
+  - Error messages for debugging
+
+- **User Progress**: Problem-solving progress
+  - Status tracking (attempted/solved)
+  - Per-user, per-problem granularity
+  - Timestamps for analytics
+
+- **Comments**: Discussion forum data
+  - User and problem associations
+  - Content with upvote counts
+  - Timestamps for sorting
+
+- **Comment Votes**: Voting system
+  - User-comment associations
+  - Prevents duplicate votes
+
+### Session Management
+
+- **Sessions**: Secure authentication
+  - Token-based with expiration
+  - User associations
+  - Automatic cleanup of expired sessions
 
 ### Database Commands
 
