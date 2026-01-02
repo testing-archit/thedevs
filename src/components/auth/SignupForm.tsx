@@ -1,10 +1,11 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import { signup } from '@/actions/auth';
 import { SubmitButton } from './SubmitButton';
 import Link from 'next/link';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 const initialState = {
     error: '',
@@ -14,6 +15,12 @@ export function SignupForm() {
     const [state, formAction] = useActionState(signup, initialState);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    useEffect(() => {
+        if (state?.error) {
+            toast.error(state.error);
+        }
+    }, [state]);
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4">
