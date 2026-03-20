@@ -247,8 +247,17 @@ The platform uses a secure, cookie-based authentication system:
 Create a `.env` file with:
 
 ```env
-DATABASE_URL=your_neon_database_url
+# Database connection string (e.g., from Neon or other PostgreSQL provider)
+DATABASE_URL=postgres://user:password@host/database?sslmode=require
+
+# Port for local development (optional)
+PORT=3000
+
+# Node environment (Vercel sets this automatically)
 NODE_ENV=development
+
+# Web3Forms (for contact form)
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-access-key-here
 ```
 
 ## 🤝 Contributing

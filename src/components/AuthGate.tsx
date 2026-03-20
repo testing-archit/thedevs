@@ -6,12 +6,12 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     return (
         <div className="relative">
             {/* Blurred content preview */}
-            <div className="blur-sm pointer-events-none select-none">
+            <div className="blur-sm pointer-events-none select-none relative z-10">
                 {children}
             </div>
 
             {/* Glassy overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-dark/60 via-dark/80 to-dark/95 backdrop-blur-xl">
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-dark/60 via-dark/80 to-dark/95 backdrop-blur-xl z-30">
                 <div className="glass-card rounded-3xl p-12 max-w-md mx-4 text-center border-2 border-primary/30 animate-fade-in">
                     {/* Lock icon with animation */}
                     <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center animate-pulse">

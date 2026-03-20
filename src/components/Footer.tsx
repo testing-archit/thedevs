@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export function Footer() {
     return (
-        <footer className="relative mt-20 border-t border-white/10">
+        <footer className="relative mt-20 border-t border-white/10 z-10">
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-primary/10 pointer-events-none"></div>
 

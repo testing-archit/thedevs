@@ -59,6 +59,7 @@ The project is configured to use **Node.js 24.x**:
 - `DATABASE_URL` - PostgreSQL connection string (required)
 - `NODE_ENV` - Set to `production` in production (optional)
 - `PORT` - Automatically set by platform (optional)
+- `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` - Web3Forms access key for contact form (optional)
 
 ## Quick Deploy Commands
 
